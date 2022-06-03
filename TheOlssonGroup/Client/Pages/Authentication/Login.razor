@@ -1,0 +1,64 @@
+﻿@page "/login"
+@using BlazorHostedAuth.Client.Services.IdentityService
+@using TheOlssonGroup.Entities.Identity.CreataUsers
+@inject IAuthenticationService authService
+@inject NavigationManager navManager
+
+<EditForm Model="signInRequest" OnValidSubmit="LoginUser">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="py-4">
+        <div class="row form-group">
+            <div class="col-6 offset-3">
+                <div class="card border">
+                    <div class="card-body px-lg-5 pt-4">
+                        <h3 class="col-12 text-success text-center py-2">
+                            <strong>Sign In</strong>
+                        </h3>
+
+                        @if (ShowSignInError)
+                        {
+                            <p class="text-center text-danger">@Errors</p>
+                        }
+
+                        <div class="py-2">
+                            <InputText @bind-Value="signInRequest.UserName" id="email" placeholder="Email..." class="form-control mb-2" />
+                            <ValidationMessage For="(() => signInRequest.UserName)"/>
+                        </div>
+                        <div class="py-2">
+                            <InputText @bind-Value="signInRequest.Password" type="password" placeholder="Password..." class="form-control mb-2" />
+                            <ValidationMessage For="(() => signInRequest.Password)"/>
+                        </div>
+                        <div class="py-2">
+                            <button type="submit" class="btn btn-success btn-block"><i class="bi bi-person-bounding-box"></i>Sign In</button>
+                            <a href="/register" class="btn btn-primary text-white m-2"><i class="bi bi-person-plus-fill"></i>Register a new user</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private SignInRequestDto signInRequest = new();
+    public bool IsProcessing { get; set; } = false;
+    public bool ShowSignInError { get; set; }
+    public string? Errors { get; set; }
+    private async Task LoginUser()
+    {
+        ShowSignInError = false;
+        IsProcessing = true;
+        var result = await authService.Login(signInRequest);
+        if (result.IsAuthSuccessful)
+        {
+            //registration successful
+            navManager.NavigateTo("/",true);
+        }
+        else
+        {
+            Errors = result.ErrorMessage;
+            ShowSignInError = true;
+        }
+        IsProcessing = false;
+    }
+}

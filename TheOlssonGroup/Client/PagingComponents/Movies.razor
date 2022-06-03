@@ -1,0 +1,46 @@
+﻿@using static MudBlazor.CategoryTypes
+@inherits MovieBase
+@page  "/moviespage"
+
+
+<MudThemeProvider/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+
+
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+        <MudTable Items=@MovieLister Dense="@dense" Hover="@hover" Striped="@striped" Bordered="@bordered">
+           <ToolBarContent>
+               <MudText Typo="Typo.h6">Inventory</MudText>
+               <MudSpacer/>
+               @*<MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+               <Search OnSearchChanged="SearchChanged"/>
+           </ToolBarContent> 
+           <HeaderContent>
+               <MudTh></MudTh>
+               <MudTh>Title</MudTh>
+               <MudTh>Genre</MudTh>
+               <MudTh>IsFeatured</MudTh>
+           </HeaderContent>
+           
+           <RowTemplate>
+               
+                 
+             
+            <MudImage Src="@context.PosterImageUrl"  Style="height: 100px; width: 100px;"></MudImage>
+            <MudTd DataLabel="Title">@context.Title</MudTd>
+            <MudTd DataLabel="Genre">@context.GenreName</MudTd>
+            <MudTd DataLabel="IsFeatured">@context.Featured</MudTd>
+            <a href="/edit/@context.Id"><MudButton Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info">Edit</MudButton></a>
+            <a href="/delete/@context.Id"><MudButton Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Delete</MudButton></a>
+            </RowTemplate>
+            <PagerContent>
+            <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+            </PagerContent>
+        </MudTable>
+        </MudContainer>
+        </MudMainContent>
+        
+
+

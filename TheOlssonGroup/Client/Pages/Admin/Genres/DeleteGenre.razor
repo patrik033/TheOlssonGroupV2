@@ -1,0 +1,71 @@
+﻿@page "/genres/delete/{categoryUrl}"
+
+@inject IGenreServiceClient genreService
+@inject IMovieServiceClient movieService
+@inject NavigationManager navManager
+@inject HttpClient http
+
+
+
+<div class="ms-5">
+    <div class="card mb-3" style="max-width: 740px">
+        <div class="row g-0">
+            <h3 class="card-header">
+                Delete Genre?
+            </h3>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Genre: @genre.GenreName</h5>
+                    <p class="card-text">Movies:</p>
+                    <hr />
+
+                   
+                    @foreach (var item in movies)
+                    {
+                        <p class="card-text mt-2">@item.Title</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<button class="btn btn-danger" @onclick="Delete">Delete</button>
+<button class="btn btn-primary" @onclick="GoBack">Go Back</button>
+
+
+@code {
+    private Genre? genre = new Genre();
+    private List<MovieDtoRecord>? movies = new List<MovieDtoRecord>();
+    private string message = string.Empty;
+    [Parameter]
+    public string? CategoryUrl { get; set; }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var result = await movieService.GetMoviesAndGenresAsync(CategoryUrl);
+        movies = result;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await genreService.GetOneGenre(CategoryUrl);
+        genre = result.Data;
+
+    }
+
+    public async Task Delete()
+    {
+        await genreService.Delete(CategoryUrl);
+        navManager.NavigateTo("/genres/index",true);
+    }
+
+    private void GoBack()
+    {
+        navManager.NavigateTo("/genres/index");
+    }
+}

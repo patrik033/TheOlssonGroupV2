@@ -1,0 +1,23 @@
+﻿.card {
+    box-shadow: -1px 15px 30px -10px black;
+}
+.container {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #eee;
+    margin-top:50px;
+    max-width:700px;
+}
+
+
+
+.my-style {
+    margin-left: 50px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}

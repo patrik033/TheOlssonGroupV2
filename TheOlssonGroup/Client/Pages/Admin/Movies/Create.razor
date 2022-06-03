@@ -1,0 +1,129 @@
+﻿@page "/create"
+@using TheOlssonGroup.Client.Service.AdminServices
+@using TheOlssonGroup.Client.Service.CartServiceClient
+@using TheOlssonGroup.Client.Service.Contratct
+@inject IMovieServiceClient movieService
+@inject IAdminService adminService
+@inject ICartServiceClient cartServiceClient
+@inject IGenreServiceClient genres
+@inject HttpClient http
+@inject NavigationManager navManager
+
+
+<div class="card">
+
+    <div class="card-body">
+        <EditForm Model="movie" OnValidSubmit="SaveMovie">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <div class="col-md-4">
+                    <InputText id="title" class="form-control" @bind-Value="movie.Title" />
+                </div>
+                <ValidationMessage For="@(() => movie.Title)" />
+            </div>
+
+            <div class="form-group">
+                <label for="rating" class="form-label">Rating</label>
+                <div class="col-md-4">
+                    <InputNumber id="rating" class="form-control" @bind-Value="movie.Rating" />
+                </div>
+                <ValidationMessage For="@(() => movie.Rating)" />
+            </div>
+
+
+            <div class="form-group">
+                <label for="ProducttionYear" class="form-label">Production Year</label>
+                <div class="col-md-4">
+                    <InputDate id="productionYear" class="form-control" @bind-Value="movie.ProductionYear" />
+                </div>
+                <ValidationMessage For="@(() => movie.ProductionYear)" />
+            </div>
+
+            <div class="form-group">
+                <label for="ShortDescription" class="form-label">ShortDescription</label>
+                <div class="col-md-4">
+                    <InputTextArea id="rating" class="form-control" @bind-Value="movie.ShortDescription" />
+                </div>
+                <ValidationMessage For="@(() => movie.ShortDescription)" />
+            </div>
+
+            <div class="form-group">
+                <label for="LongDescription" class="form-label">LongDescription</label>
+                <div class="col-md-4">
+                    <InputTextArea id="LongDescription" class="form-control" @bind-Value="movie.LongDescription" />
+                </div>
+                <ValidationMessage For="@(() => movie.LongDescription)" />
+            </div>
+
+            <div class="form-group">
+                <label for="PosterImageUrl" class="form-label">PosterImageUrl</label>
+                <div class="col-md-4">
+                    <InputFile id="PosterImageUrl" class="form-control" OnChange="SaveFile" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Price" class="form-label">Price</label>
+                <div class="col-md-4">
+                    <InputNumber id="Price" class="form-control" @bind-Value="movie.Price" />
+                </div>
+                <ValidationMessage For="@(() => movie.Price)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Genre" class="form-label">Genre</label>
+                <div class="col-md-4">
+                    <InputSelect class="form-control" id="genreId" @bind-Value="movie.GenreId">
+                        @foreach (var item in genres.Genres)
+                        {
+                            <option value="@item.Id">@item.GenreName</option>
+                        }
+                        @if (movie.GenreId == 0)
+                        {
+                            movie.GenreId = 1;
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Featured" class="form-label">
+                    Featured
+                </label>
+                <div class="col-md-4">
+                    <InputCheckbox class="form-check" id="featured" @bind-Value="movie.Featured" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    private Movie? movie = new Movie();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await genres.GetAllGenres();
+    }
+
+    private async Task SaveMovie()
+    {
+        await adminService.Save(movie);
+        navManager.NavigateTo("/index", true);
+    }
+
+    async Task SaveFile(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var resizedImage = await e.File.RequestImageFileAsync(format, 400, 400);
+        var buffer = new byte[resizedImage.Size];
+        await resizedImage.OpenReadStream().ReadAsync(buffer);
+        var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        movie.PosterImageUrl = imageData;
+    }
+}

@@ -1,0 +1,101 @@
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow ">
+    <div class="">
+
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <NavLink class="nav-link text-white" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+
+                <li class="nav-item ">
+                    <NavLink class="nav-link" href="/allmovies">
+                        All Movies
+                    </NavLink>
+                </li>
+
+
+                <AuthorizeView>
+                    <Authorized>
+
+                        <li class="nav-item mx-2">
+                            <NavLink class="nav-link" href="/index">
+                                Movie Admin
+                            </NavLink>
+                        </li>
+
+                        <li class="nav-item mx-2">
+                            <NavLink class="nav-link" href="/genres/Index">
+                                Genres Admin
+                            </NavLink>
+                        </li>
+
+                        <li class=" nav-item mt-2 mx-2">
+
+                            <h4 class="text-white">Hello, @context.User.Identity?.Name?.Substring(0,@index)</h4>
+                        </li>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="/logout">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> Logout
+                            </NavLink>
+                        </li>
+                    </Authorized>
+
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="/register">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Register
+                            </NavLink>
+                        </li>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="/login">
+                                <span class="oi oi-list-rich" aria-hidden="true"></span> Login
+                            </NavLink>
+                        </li>
+                    </NotAuthorized>
+
+                </AuthorizeView>
+                <li class="nav-item mx-2">
+                    <ItemsInStorage />
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+@code {
+    int index = 0;
+    [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            index = user.Identity.Name.IndexOf('@');
+        }
+    }
+    bool _isExpanded = false;
+
+
+    bool collapseNavMenu = true;
+
+    string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
+
+    string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+

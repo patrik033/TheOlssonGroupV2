@@ -1,0 +1,151 @@
+﻿@page "/success"
+
+@using static MudBlazor.CategoryTypes
+@inject ICartServiceClient cartService
+@inject ILocalStorageService localStorage
+@inject IEmailServiceClient client
+@inject IUserServiceClient userService
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider user
+<h1>Thank You!</h1>
+<span>Thanks for buying from us!</span>
+<h1>Here's a summary of your order:</h1>
+
+<MudMainContent>
+    <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+        <MudTable Items=@movies Dense="true" Hover="true" Striped="true" Bordered="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Inventory</MudText>
+                <MudSpacer />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Title</MudTh>
+                <MudTh>Quantity</MudTh>
+                <MudTh>Price</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudImage Src="@context.ImageUrl" Style="height: 100px; width: 100px;"></MudImage>
+                <MudTd DataLabel="Title">@context.Title</MudTd>
+                <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
+                <MudTd DataLabel="Price">@context.Price</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudContainer>
+</MudMainContent>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Count</td>
+            <td>Sum</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="col-4">
+                    @movies.Sum(movie => movie.Quantity)
+                </div>
+            </td>
+            <td><div class="col-4">
+                    @movies.Sum(movie => movie.Quantity * movie.Price)
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <h4>Do you want to send a confirmation email? Click the button if so:</h4>
+    <button class="btn btn-primary" @onclick="SendEmailToServer">Send Email</button>
+</div>
+
+
+
+@code {
+
+    List<MovieCartDto> movies = new List<MovieCartDto>();
+    private string email = "";
+    List<ListOrdersDto> listOfProducts = new List<ListOrdersDto>();
+    bool orderPlaced = false;
+    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCart();
+        await SaveUserData();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await EmptyCart();
+        await Task.FromResult(base.OnAfterRenderAsync(firstRender));
+    }
+
+    private async Task LoadCart()
+    {
+        movies = await cartService.GetCartProducts();
+        foreach (var item in movies)
+        {
+            var items = new ListOrdersDto()
+                {
+                    Title = item.Title,
+                    ImageUrl = item.ImageUrl,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    OrderId = item.MovieId,
+                    TotalPrice = item.Price * item.Quantity
+                };
+            listOfProducts.Add(items);
+
+        }
+    }
+
+    public async Task EmptyCart()
+    {
+        await cartService.EmptyCart();
+    }
+
+    public async Task SaveUserData()
+    {
+        var userEmail = "";
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated && user.Identity.IsAuthenticated != null)
+        {
+            userEmail = authState.User.Identity.Name;
+        }
+
+        var getUser = await userService.GetUserId(userEmail);
+        var userId = getUser.Data;
+
+        var userDto = new UserOrdersDto()
+            {
+                BoughtProducts = listOfProducts,
+                TotalPrice = listOfProducts.Sum(x => x.Price * x.Quantity),
+                OrderDate = DateTime.Now,
+                UserId = userId,
+                UserEmail = userEmail
+            };
+
+        await userService.SaveUser(userDto);
+    }
+    private async Task SendEmailToServer()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+        var email = "";
+        if (user.Identity.IsAuthenticated)
+        {
+            email = authState.User.Identity.Name;
+        }
+        var result = new EmailDto()
+            {
+                EmailList = movies,
+                EmailAddress = email
+            };
+        await client.SendEmail(result);
+        navManager.NavigateTo("/");
+    }
+}

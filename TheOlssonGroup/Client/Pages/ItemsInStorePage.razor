@@ -1,0 +1,233 @@
+﻿@page "/cart"
+@using TheOlssonGroup.Client.Service.CartServiceClient
+@inject ICartServiceClient CartServicesClient
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider user
+
+
+
+
+@if (!orderPlaced)
+{
+    <h3>Shopping Cart</h3>
+    @if (movies is null || movies.Count is 0)
+    {
+        <span>@message</span>
+    }
+    else
+    {
+        <div class="container mt-4 p-0">
+            <div class="row px-md-4 px-2 pt-4">
+                <div class="col-lg-8">
+                    <p class="pb-2 fw-bold">Order</p>
+                    <div class="card">
+                        <div>
+                            <div class="table-responsive px-md-4 px-2 pt-3">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        @foreach (var item in movies)
+                                        {
+                                            <tr class="border-bottom">
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div> <img class="pic" src="@item.ImageUrl" alt=""> </div>
+                                                        <div class="ps-3 d-flex flex-column justify-content">
+                                                            <p class="fw-bold"><span>@item.Title</span></p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+
+                                                        <p class="text-muted"><span>Price:&nbsp;&nbsp;&nbsp; $@item.Price</span></p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="pe-3 text-muted">Quantity</span> <span class="pe-3">
+
+                                                            <input type="number" value="@item.Quantity"
+                                                       @onchange="@((ChangeEventArgs e) => UpdateQuantity(e, item))"
+                                                       class="form-control input-quantity"
+                                                       min="1" />
+                                                            <button class="btn btn-danger" @onclick="@(() =>
+                                                                 Remove(item.MovieId))">
+                                                                Delete
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 delivery px-md-3 px-1">
+                    <p class="pt-4 fw-bold pb-3 ps-2">Delivery</p>
+                    <div class="d-md-flex justify-content-between align-items-center pb-4">
+                        <div class="row">
+                            <div class="col-6">
+
+                                <div class="size d-flex ps-4">
+                                    <label class="option d-flex align-items-center">
+                                        <input type="radio" name="radio">
+                                        <div class="card">
+                                            <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <img class="del" src="https://www.freepnglogos.com/uploads/ups-logo-transparent/ups-airlines-aviation-22.png" alt="">
+                                                    <p class="ps-2">UPS</p>
+                                                </div>
+                                                <div class=" d-flex flex-column px-3">
+                                                    <p class="fw-bold pb-1">UPS Deliveries</p> <small class="text-muted pb-1">Expected<span class="ps-1">delivery:</span></small> <small class="text-muted pb-1">Friday:28</small>
+                                                </div>
+                                                <p class="fw-bold">$5.25</p>
+                                            </div>
+                                        </div>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="size d-flex pt-md-0 pt-3 ps-md-0 ps-4">
+                            <label class="option d-flex align-items-center">
+                                <input type="radio" name="radio">
+                                <div class="card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <img class="del " src="https://www.freepnglogos.com/uploads/dhl-png-logo/dhl-new-express-logo-png-9.png" />
+                                            <p class="ps-2">DHL</p>
+                                        </div>
+                                        <div class=" d-flex flex-column px-3">
+                                            <p class="fw-bold pb-1">DHL Deliveries</p> <small class="text-muted pb-1">Expected<span class="ps-1">delivery:</span></small> <small class="text-muted pb-1">Thursday:27</small>
+                                        </div>
+                                        <p class="fw-bold">$5.25</p>
+                                    </div>
+                                </div> <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-md-flex justify-content-between align-items-center pb-4">
+                        <div class="size d-flex ps-4">
+                            <label class="option d-flex align-items-center">
+                                <input type="radio" name="radio">
+                                <div class="card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <img class="del" src="https://www.freepnglogos.com/uploads/ups-logo-transparent/ups-airlines-aviation-22.png" alt="">
+                                            <p class="ps-2">DPD</p>
+                                        </div>
+                                        <div class=" d-flex flex-column px-3">
+                                            <p class="fw-bold pb-1">DPD<span>Deliveries</span></p> <small class="text-muted pb-1">Expected<span class="ps-1">delivery:</span></small> <small class="text-muted pb-1">Friday:28</small>
+                                        </div>
+                                        <p class="fw-bold">$5.25</p>
+                                    </div>
+                                </div> <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="size d-flex pt-md-0 pt-3 ps-md-0 ps-4">
+                            <label class="option d-flex align-items-center">
+                                <input type="radio" name="radio">
+                                <div class="card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <img class="del" src="https://www.freepnglogos.com/uploads/ups-logo-transparent/ups-airlines-aviation-22.png" alt="">
+                                            <p class="ps-2">DPD</p>
+                                        </div>
+                                        <div class=" d-flex flex-column px-3">
+                                            <p class="fw-bold pb-1">DPD<span>Deliveries</span></p> <small class="text-muted pb-1">Expected<span class="ps-1">delivery:</span></small> <small class="text-muted pb-1">Friday:28</small>
+                                        </div>
+                                        <p class="fw-bold">$5.25</p>
+                                    </div>
+                                </div> <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 payment-summary">
+                    <p class="fw-bold pt-lg-0 pt-4 pb-2">Order Summary</p>
+                    <div class="card px-md-3 px-2 pt-4">
+
+
+                        <div class="d-flex flex-column ">
+                            <div class="d-flex justify-content-between py-3">
+                                <small class="text-muted"></small>
+                                <p></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small class="text-muted">Total Amount</small>
+                                <p>  $@movies.Sum(movie => movie.Price * movie.Quantity)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button class="btn btn-primary btn-lg" @onclick="PlaceOrder">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+    List<MovieCartDto> movies = null;
+    private string message = "";
+    bool orderPlaced = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCart();
+    }
+
+    private async Task LoadCart()
+    {
+        if ((await CartServicesClient.GetCartItems()).Count == 0)
+        {
+            message = "Your movie cart is empty";
+            movies = new List<MovieCartDto>();
+        }
+        else
+        {
+            movies = await CartServicesClient.GetCartProducts();
+        }
+    }
+
+    private async Task Remove(int movieId)
+    {
+        await CartServicesClient.RemoveMovieFromCart(movieId);
+        await LoadCart();
+
+    }
+
+    private async Task UpdateQuantity(ChangeEventArgs e, MovieCartDto movie)
+    {
+        movie.Quantity = int.Parse(e.Value.ToString());
+        if (movie.Quantity < 1)
+            movie.Quantity = 1;
+        await CartServicesClient.UpdateQuantity(movie);
+    }
+
+    private async Task PlaceOrder()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (!user.Identity.IsAuthenticated)
+        {
+            navManager.NavigateTo("/login");
+        }
+        else
+        {
+            string checkOutUser = await CartServicesClient.Checkout();
+            navManager.NavigateTo(checkOutUser);
+        }
+
+
+    }
+}

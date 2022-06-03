@@ -1,0 +1,89 @@
+﻿
+.pic img {
+    max-height: 200px;
+}
+
+
+body {
+    background-color: #b064f7;
+    line-height: 1rem;
+    font-size: 14px;
+    padding: 10px
+}
+
+.container {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #eee
+}
+
+.pic {
+    width: 70px;
+    height: 90px;
+    border-radius: 5px
+}
+
+td {
+    vertical-align: middle
+}
+
+.del {
+    width: 40px;
+    height: 40px;
+    object-fit: cover
+}
+
+/*for the check for deliveries*/
+.option {
+    position: relative;
+    top: 50%;
+    display: block;
+    cursor: pointer;
+    color: #888
+}
+
+    .option input {
+        display: none
+    }
+
+/*so we can check the radio buttons*/
+.checkmark {
+    position: absolute;
+    top: 40%;
+    left: -25px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%
+}
+
+
+/*same as above*/
+
+.option .checkmark:after {
+    content: "\2713";
+    width: 10px;
+    height: 10px;
+    display: block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out 0s
+}
+
+/*same as above*/
+.option input[type="radio"]:checked ~ .checkmark {
+    background: #ac1f32;
+    color: #fff;
+    transition: 300ms ease-in-out 0s
+}
+
+    /*same as above*/
+    .option input[type="radio"]:checked ~ .checkmark:after {
+        transform: translate(-50%, -50%) scale(1);
+        color: #fff
+    }

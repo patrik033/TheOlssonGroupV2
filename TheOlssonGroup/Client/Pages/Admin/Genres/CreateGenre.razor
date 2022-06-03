@@ -1,0 +1,40 @@
+﻿@inject IGenreServiceClient genreService
+@inject HttpClient http
+@inject NavigationManager navManager
+
+<div class="card">
+    <div class="card-header">
+        Create New Genre
+    </div>
+    <div class="card-body">
+        <EditForm model="genre" OnValidSubmit="SaveGenre">
+            <DataAnnotationsValidator/>
+
+             <div class="form-group">
+                <label for="GenreName" class="form-label">Genre Name</label>
+                <div class="col-md-4">
+                    <InputText id="genreName" class="form-control" @bind-Value="genre.GenreName" />
+                </div>
+                <ValidationMessage For="@(() => genre.GenreName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="GenreUrl" class="form-label">Genre Url</label>
+                <div class="col-md-4">
+                    <InputText id="genreUrl" class="form-control" @bind-Value="genre.GenreUrl" />
+                </div>
+                <ValidationMessage For="@(() => genre.GenreUrl)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private Genre? genre = new Genre();
+    private async Task SaveGenre()
+    {
+        await genreService.Save(genre);
+        navManager.NavigateTo("/genres/Index",true);
+    }
+}

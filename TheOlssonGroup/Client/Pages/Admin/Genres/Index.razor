@@ -1,0 +1,68 @@
+﻿@page "/genres/index"
+@attribute [Authorize(Roles = StaticDetails.Role_Admin)]
+@inject IGenreServiceClient genres
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                Genres
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                             <td>GenreName</td>
+                             <td>GenreUrl</td>
+                             <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var genre in genres.Genres)
+                       {
+                           <tr>
+                               <td>@genre.GenreName</td>
+                               <td>@genre.GenreUrl</td>
+                               <td>
+                                   <a class="btn btn-primary" href="/genres/delete/@genre.GenreUrl">Delete</a>
+                               </td>
+                           </tr>
+                       }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="col-lg-5">
+        <div class="card-body">
+            <CreateGenre></CreateGenre>
+        </div>
+    </div>
+</div>
+
+
+
+@*<MudChart ChartType="ChartType.Bar" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350px">
+	<CustomGraphics>
+		<style>
+			.heavy { font: bold 30px Helvetica; }
+			.Rrrrr { font: italic 40px Helvetica; fill: rgb(62,44,221); }
+		</style>
+		<text x="80" y="35" class="heavy">I Love</text>
+		<text x="105" y="70" class="Rrrrr">MudBlazor!</text>
+	</CustomGraphics>
+</MudChart>*@
+
+
+
+
+
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+         await genres.GetAllGenres();
+    }
+}

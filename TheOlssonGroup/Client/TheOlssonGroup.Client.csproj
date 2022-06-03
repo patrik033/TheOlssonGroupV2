@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+		<InvariantGlobalization>true</InvariantGlobalization>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="C:\Users\patri\.nuget\packages\psc.blazor.components.datatable\6.0.9\contentFiles\any\net6.0\wwwroot\js\DataTable.js" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Authentication\Login.razor" />
+    <None Include="Pages\Authentication\Logout.razor" />
+    <None Include="Pages\Authentication\Register.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
+    <PackageReference Include="Blazored.Modal" Version="6.0.1" />
+    <PackageReference Include="BlazorStrap" Version="5.0.105.4262022" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="MudBlazor" Version="6.0.10" />
+    <PackageReference Include="PSC.Blazor.Components.DataTable" Version="6.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TheOlssonGroup.Entities\TheOlssonGroup.Entities.csproj" />
+    <ProjectReference Include="..\Shared\TheOlssonGroup.Shared.csproj" />
+  </ItemGroup>
+
+
+	
+
+</Project>
