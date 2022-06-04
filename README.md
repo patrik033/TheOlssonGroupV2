@@ -30,8 +30,8 @@ The website is setup with stripe as the payment provied, but no money will be ch
 
  
  For date use a valid future date such as 12/34
- And csv code 3 or 4 digits for american express cards
- For more information how to use stripe, please use:   [Stripe testing documentation](https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers#use-test-cards)
+ And csv code 3 &nbsp; (4 digits for american express cards)
+<br/><br/>For more information how to use stripe, please use:  &nbsp; [Stripe testing documentation](https://stripe.com/docs/testing?numbers-or-method-or-token=card-numbers#use-test-cards)
  
  ## Email Service
  
