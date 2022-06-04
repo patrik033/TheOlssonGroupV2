@@ -27,7 +27,7 @@ The website is setup with stripe as the payment provied, but no money will be ch
 * For payment success:  4242 4242 4242 4242
 * For cards with unnificent founds: 4000 0000 0000 9995
 * For declined payment: 4000 0000 0000 0002
-* 
+
  
  For date use a valid future date such as 12/34
  And csv code 3 or 4 digits for american express cards
