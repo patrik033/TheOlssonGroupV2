@@ -15,7 +15,8 @@ Also make sure to change the serviceextensions(under the server project) and the
 
 
 ### Azure Database
-AS default the application is hosted at a azure appservice and database and every user is created with admin permission.
+As default the application is hosted at a azure appservice and database and every user is created with admin permission.
+</br>Here's the address for the app: &nbsp;&nbsp; [The Olsson Group](https://theolssongroup.azurewebsites.net/)
 
 ## How to use stripe checkout
 
@@ -24,7 +25,9 @@ The website is setup with stripe as the payment provied, but no money will be ch
 ### How to checkout
 
 * For payment success:  4242 4242 4242 4242
-* For declined payment: 4000 0000 0000 9995
+* For cards with unnificent founds: 4000 0000 0000 9995
+* For declined payment: 4000 0000 0000 0002
+* 
  
  For date use a valid future date such as 12/34
  And csv code 3 or 4 digits for american express cards
