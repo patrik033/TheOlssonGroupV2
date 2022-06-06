@@ -5,14 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
 	<PropertyGroup>
 		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
 	</PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\TheOlssonGroup.Entities\TheOlssonGroup.Entities.csproj" />
     <ProjectReference Include="..\TheOlssonGroup\Shared\TheOlssonGroup.Shared.csproj" />
   </ItemGroup>
-
 </Project>

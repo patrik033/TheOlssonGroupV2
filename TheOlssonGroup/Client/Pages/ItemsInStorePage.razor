@@ -47,13 +47,25 @@
                                                         <span class="pe-3 text-muted">Quantity</span> <span class="pe-3">
 
                                                             <input type="number" value="@item.Quantity"
-                                                       @onchange="@((ChangeEventArgs e) => UpdateQuantity(e, item))"
+                                                       readonly="readonly"
                                                        class="form-control input-quantity"
                                                        min="1" />
-                                                            <button class="btn btn-danger" @onclick="@(() =>
+                                                            <button class="btn btn-danger" style="max-width:100px;" @onclick="@(() =>
                                                                  Remove(item.MovieId))">
                                                                 Delete
                                                             </button>
+
+                                                            <button class="btn btn-primary" style="max-width:100px;" @onclick="@(() =>
+                                                                 Add(item.MovieId,item.Price,1))">
+                                                                Add
+                                                            </button>
+                                                            @if (item.Quantity >= 2)
+                                                            {
+                                                                <button class="btn btn-danger" style="max-width:100px;" @onclick="@(() =>
+                                                                 Decrease(item.MovieId,item.Price,1))">
+                                                                    Decrease
+                                                                </button>
+                                                            }
                                                         </span>
                                                     </div>
                                                 </td>
@@ -202,15 +214,28 @@
     {
         await CartServicesClient.RemoveMovieFromCart(movieId);
         await LoadCart();
-
     }
 
-    private async Task UpdateQuantity(ChangeEventArgs e, MovieCartDto movie)
+    private async Task Add(int movieId, decimal price, int count)
     {
-        movie.Quantity = int.Parse(e.Value.ToString());
-        if (movie.Quantity < 1)
-            movie.Quantity = 1;
-        await CartServicesClient.UpdateQuantity(movie);
+        await CartServicesClient.Add(new()
+            {
+                Quantity = count,
+                MovieId = movieId,
+                Price = price
+            });
+        await LoadCart();
+    }
+
+    private async Task Decrease(int movieId, decimal price, int count)
+    {
+        await CartServicesClient.Decrease(new()
+            {
+                Quantity = count,
+                MovieId = movieId,
+                Price = price
+            });
+        await LoadCart();
     }
 
     private async Task PlaceOrder()
@@ -227,7 +252,6 @@
             string checkOutUser = await CartServicesClient.Checkout();
             navManager.NavigateTo(checkOutUser);
         }
-
-
     }
+
 }

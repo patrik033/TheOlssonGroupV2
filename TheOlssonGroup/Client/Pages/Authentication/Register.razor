@@ -6,56 +6,78 @@
 
 <EditForm Model="signUpRequest" OnValidSubmit="RegisterUser" class="pt-4">
     <DataAnnotationsValidator></DataAnnotationsValidator>
-    <div class="py-4">
-        <div class="row form-group">
-            <div class="col-6 offset-3">
-                <div class="card border">
-                    <div class="card-body px-lg-5 pt-4">
-                        <h3 class="col-12 text-success text-center py-2">
-                            <strong>Sign Up</strong>
-                        </h3>
-                        @if (ShowResistrationError)
-                        {
-                            <div>
-                                @foreach (var item in Errors)
-                                {
-                                    <p class="text-danger text-center">@item</p>
-                                }
+    <section class="h-100 bg-light">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card card-registration my-4">
+                        <div class="row g-0">
+                            <div class="col-6 d-none d-md-block">
+                                <img src="/Images/register.svg" class="img-fluid" />
                             </div>
-                        }
-                        <div class="py-2">
-                            <InputText @bind-Value="signUpRequest.Name" class="form-control" placeholder="Name..." />
-                            <ValidationMessage For="(() => signUpRequest.Name)" />
-                        </div>
-                        <div class="py-2">
-                            <InputText @bind-Value="signUpRequest.Email" class="form-control" placeholder="Email..." />
-                            <ValidationMessage For="(() => signUpRequest.Email)" />
-                        </div>
-                        <div class="py-2 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"> +46</span>
-                            </div>
-                            <InputText @bind-Value="signUpRequest.PhoneNumber" type="text" class="form-control" placeholder="Phone number..." />
-                            <ValidationMessage For="(() => signUpRequest.PhoneNumber)" />
-                        </div>
-                        <div class="form-row py-2">
-                            <div class="col">
-                                <InputText @bind-Value="signUpRequest.Password" type="password" placeholder="Password..." class="form-control" />
-                                <ValidationMessage For="(() => signUpRequest.Password)" />
-                            </div>
-                            <div class="col py-2">
-                                <InputText @bind-Value="signUpRequest.ConfirmPassword" type="password" id="confirm" class="form-control" placeholder="Confirm Password..." />
-                                <ValidationMessage For="(() => signUpRequest.ConfirmPassword)" />
-                            </div>
-                            <div class="py-2">
-                                <button type="submit" class="btn btn-success btn-block">Register Account</button>
+                            <div class="col-6">
+                                <div class="card-body p-md-5 text-black">
+                                    <h3 class="col-12 text-success text-center py-2">
+                                        <strong>Sign Up</strong>
+                                    </h3>
+                                    @if (ShowResistrationError)
+                                    {
+                                        <div>
+                                            @foreach (var item in Errors)
+                                            {
+                                                <p class="text-danger text-center">@item</p>
+                                            }
+                                        </div>
+                                    }
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 mb-4">
+
+                                            <div class="py-2">
+                                                <InputText @bind-Value="signUpRequest.Name" class="form-control form-control-lg" placeholder="Name..." />
+                                                <ValidationMessage For="(() => signUpRequest.Name)" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 mb-4">
+                                            <div class="py-2 input-group">
+                                                <InputText @bind-Value="signUpRequest.PhoneNumber" type="text" class="form-control form-control-lg" placeholder="Phone number..." />
+                                                <ValidationMessage For="(() => signUpRequest.PhoneNumber)" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <div class="py-2">
+                                            <InputText @bind-Value="signUpRequest.Email" class="form-control form-control-lg" placeholder="Email..." />
+                                            <ValidationMessage For="(() => signUpRequest.Email)" />
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-outline mb-4">
+
+                                        <InputText @bind-Value="signUpRequest.Password" type="password" placeholder="Password..." class="form-control form-control-lg" />
+                                        <ValidationMessage For="(() => signUpRequest.Password)" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+
+                                        <InputText @bind-Value="signUpRequest.ConfirmPassword" type="password" id="confirm" class="form-control form-control-lg" placeholder="Confirm Password..." />
+                                        <ValidationMessage For="(() => signUpRequest.ConfirmPassword)" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-start pt-3">
+                                        <button type="submit" class="btn btn-success btn-lg ms-2">Register</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </EditForm>
 
 

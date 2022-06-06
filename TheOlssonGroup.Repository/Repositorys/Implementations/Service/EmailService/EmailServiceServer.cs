@@ -51,18 +51,19 @@ namespace TheOlssonGroup.Server.Service.EmailService
             {
                 htmlMessage += "Title: ";
                 htmlMessage += email.Title += "<br>";
-                htmlMessage += "Number of items: ";
+                htmlMessage += "Quantity: ";
                 htmlMessage += email.Quantity.ToString();
                 htmlMessage += "<br>";
                 htmlMessage += "Price: ";
                 htmlMessage += (email.Price * email.Quantity).ToString();
-                htmlMessage += "<br>";
+                htmlMessage += "<br><br>";
             }
-            htmlMessage += "Quantity: ";
+            htmlMessage += "<br>";
+            htmlMessage += "Total Quantity: ";
             htmlMessage += emailSent.EmailList.Sum(email => email.Quantity).ToString();
             htmlMessage += "<br>";
-            htmlMessage += "Price: ";
-            htmlMessage += emailSent.EmailList.Sum(email => email.Price).ToString();
+            htmlMessage += "Total Price: ";
+            htmlMessage += emailSent.EmailList.Sum(email => email.Price * email.Quantity).ToString();
             htmlMessage += "<br>";
             htmlMessage += "</p>";
             return htmlMessage;
@@ -95,9 +96,7 @@ namespace TheOlssonGroup.Server.Service.EmailService
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
             return Task.CompletedTask;
-            
         }
     }
 }

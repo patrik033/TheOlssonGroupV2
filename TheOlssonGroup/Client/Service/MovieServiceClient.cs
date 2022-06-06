@@ -40,7 +40,6 @@ namespace TheOlssonGroup.Client.Service
             }
         }
 
-
         public async Task<ServiceResponse<Movie>> GetSingleMovie(int id)
         {
             var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Movie>>($"api/v1/movie/{id}");

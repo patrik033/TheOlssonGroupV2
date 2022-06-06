@@ -12,8 +12,6 @@
 else
 {
     <div class="container  h-100 ">
-
-
         <div class="card mb-3 justify-content-center align-items-center ">
             <div class="row  ">
                 <div class="col-md-4">
@@ -32,19 +30,7 @@ else
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -64,7 +50,7 @@ else
                 Price = movie.Price,
                 Title = movie.Title
             };
-        await cartServiceClient.AddToCart(cartItem);
+        await cartServiceClient.Add(cartItem);
     }
 
     protected override async Task OnParametersSetAsync()

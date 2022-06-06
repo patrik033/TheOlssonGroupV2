@@ -17,23 +17,48 @@ namespace TheOlssonGroup.Client.Service.CartServiceClient
 
         public event Action OnChange;
 
-        public async Task AddToCart(CartItem cartItem)
+        public async Task Add(CartItem cartItem)
         {
-            var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
-            if (cart is null)
+            var movieCart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
+            bool itemsInMovieCart = false;
+            if(movieCart is null)
             {
-                cart = new List<CartItem>();
+                movieCart = new List<CartItem>();
             }
-            var doubleItems = cart.Find(x => x.MovieId == cartItem.MovieId);
-            if (doubleItems is null)
+            foreach (var item in movieCart)
             {
-                cart.Add(cartItem);
+                if(item.MovieId == cartItem.MovieId)
+                {
+                    itemsInMovieCart = true;
+                    item.Quantity += cartItem.Quantity;
+                }
             }
-            else
+            if (!itemsInMovieCart)
             {
-                doubleItems.Quantity += cartItem.Quantity;
+                movieCart.Add(new CartItem()
+                {
+                    MovieId = cartItem.MovieId,
+                    Quantity = cartItem.Quantity,
+                    Image = cartItem.Image,
+                    Price = cartItem.Price,
+                    Title = cartItem.Title,
+                });
             }
 
+            await _localStorageService.SetItemAsync("cart", movieCart);
+            OnChange.Invoke();
+        }
+
+        public async Task Decrease(CartItem cartItem)
+        {
+            var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
+            foreach (var item in cart)
+            {
+                if(item.MovieId == cartItem.MovieId)
+                {
+                    item.Quantity -= cartItem.Quantity;
+                }
+            }
             await _localStorageService.SetItemAsync("cart", cart);
             OnChange.Invoke();
         }
@@ -86,22 +111,6 @@ namespace TheOlssonGroup.Client.Service.CartServiceClient
         {
             await _localStorageService.RemoveItemAsync("cart");
             OnChange.Invoke();
-        }
-
-        public async Task UpdateQuantity(MovieCartDto movie)
-        {
-            var cart = await _localStorageService.GetItemAsync<List<CartItem>>("cart");
-            if (cart == null)
-            {
-                return;
-            }
-
-            var movieItem = cart.Find(x => x.MovieId == movie.MovieId);
-            if (movieItem != null)
-            {
-                movieItem.Quantity = movie.Quantity;
-                await _localStorageService.SetItemAsync("cart", cart);
-            }
         }
     }
 }

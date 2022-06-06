@@ -21,16 +21,16 @@
                         }
 
                         <div class="py-2">
-                            <InputText @bind-Value="signInRequest.UserName" id="email" placeholder="Email..." class="form-control mb-2" />
+                            <InputText @bind-Value="signInRequest.UserName" id="email" placeholder="Email..." class="form-control form-control-lg mb-2" />
                             <ValidationMessage For="(() => signInRequest.UserName)"/>
                         </div>
                         <div class="py-2">
-                            <InputText @bind-Value="signInRequest.Password" type="password" placeholder="Password..." class="form-control mb-2" />
+                            <InputText @bind-Value="signInRequest.Password" type="password" placeholder="Password..." class="form-control form-control-lg mb-2" />
                             <ValidationMessage For="(() => signInRequest.Password)"/>
                         </div>
                         <div class="py-2">
-                            <button type="submit" class="btn btn-success btn-block"><i class="bi bi-person-bounding-box"></i>Sign In</button>
-                            <a href="/register" class="btn btn-primary text-white m-2"><i class="bi bi-person-plus-fill"></i>Register a new user</a>
+                            <button type="submit" class="btn btn-success btn-lg">Log In</button>
+                            <a href="/register" class="btn btn-primary text-white m-2 btn-lg">Register</a>
                         </div>
                     </div>
                 </div>
@@ -38,6 +38,12 @@
         </div>
     </div>
 </EditForm>
+
+
+
+
+
+
 
 @code {
     private SignInRequestDto signInRequest = new();

@@ -79,8 +79,6 @@
     //private bool _bullets = true;
     //private bool _autocycle = true;
     //private List<string> urls = new List<string>();
-   
-   
     private Movie? movie = null;
     [Parameter]
     public string? CategoryUrl { get; set; }
@@ -95,13 +93,11 @@
                 Price = movie.Price,
                 Title = movie.Title
             };
-        await cartServiceClient.AddToCart(cartItem);
+        await cartServiceClient.Add(cartItem);
     }
     protected override async Task OnParametersSetAsync()
     {
         var result = await movieService.GetMoviesAndGenresAsync(CategoryUrl);
         MyMovie = result;
-       
     }
-     
 }
