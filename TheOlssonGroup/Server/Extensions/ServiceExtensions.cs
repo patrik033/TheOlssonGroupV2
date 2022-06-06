@@ -26,23 +26,25 @@ namespace TheOlssonGroup.Server.Extensions
                     .WithExposedHeaders("X-Pagination"));
             });
 
-        public static void ConfigureIISIntegration(this IServiceCollection services) =>
-            services.Configure<IISOptions>(options =>
-            {
 
-            });
-
+        /// <summary>
+        /// Versioning for the API
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureApiVersioning(this IServiceCollection services) =>
             services.AddApiVersioning(x =>
             {
                 x.DefaultApiVersion = new ApiVersion(1, 0);
                 x.AssumeDefaultVersionWhenUnspecified = true;
                 x.ReportApiVersions = true;
-                
             });
 
      
-
+        /// <summary>
+        /// Configure the sql server
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureSqlContextOlsson(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<OlssonContext>(opts =>
             opts.UseSqlServer(configuration.GetConnectionString("AzureServer")));

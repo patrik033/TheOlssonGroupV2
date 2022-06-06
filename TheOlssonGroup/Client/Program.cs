@@ -30,22 +30,14 @@ builder.Services.AddScoped<IGenreServiceClient, GenreServiceClient>();
 builder.Services.AddScoped<ICartServiceClient, CartServiceClient>();
 builder.Services.AddScoped<IEmailServiceClient, EmailServiceClient>();
 builder.Services.AddScoped<IUserServiceClient, UserServiceClient>();
-
-
-//builder.Services.AddScoped<IAuthServiceClient, AuthServiceClient>();
 builder.Services.AddOptions();
-//builder.Services.AddScoped<AuthenticationStateProvider, CustomStateProvider>();
-
-
 
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredModal();
 builder.Services.AddScoped<IAdminService, AdminService>();
 
-
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
 
 await builder.Build().RunAsync();

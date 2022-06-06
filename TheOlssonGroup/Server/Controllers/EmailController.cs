@@ -10,7 +10,6 @@ namespace TheOlssonGroup.Server.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/email")]
-    //[Route("api/email")]
     public class EmailController : ControllerBase
     {
         private readonly IEmailServiceServer _emailService;

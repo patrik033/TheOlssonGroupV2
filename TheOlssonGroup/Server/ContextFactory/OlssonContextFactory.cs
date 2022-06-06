@@ -18,7 +18,5 @@ namespace TheOlssonGroup.Server.ContextFactory
 
             return new OlssonContext(builder.Options);
         }
-
-        
     }
 }

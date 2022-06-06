@@ -242,14 +242,14 @@ namespace TheOlssonGroup.Server.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3ebf560d-dec7-4e1f-acae-ab1a0d2148b7", "e3785046-c145-49ec-9078-e956d552d582", "Customer", "CUSTOMER" },
-                    { "97858122-519a-40d6-845e-d5191267dce4", "130f2899-f256-4fbd-a8f5-038149b444cf", "Admin", "ADMIN" }
+                    { "806adbba-a48d-4292-9a5f-51688f5b6647", "34b458e2-bec3-4bd7-b7e5-fecce2ec0075", "Customer", "CUSTOMER" },
+                    { "f54b9396-2d08-4c74-97e4-33ab0fa66a6f", "522babaf-fca9-48d5-8f33-cfd0f05bf6f0", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7bd3e76d-6eb5-4dde-94b4-4bbd2e799614", 0, "e3014df7-eb94-4c03-a90d-ee85538c6d1e", "IdentityUser", "Admin@Olsson.com", true, false, null, null, null, null, null, false, "6649ab43-fa15-49c7-b8a6-f83b5197a7a7", false, "Admin@Olsson.com" });
+                values: new object[] { "97114941-e4a7-4b1e-81ed-87559e5a78c5", 0, "b48d5cdd-0201-4a53-a24b-579c9133faf4", "IdentityUser", "Admin@Olsson.com", true, false, null, null, null, null, null, false, "724894a3-085a-4664-90ff-0e7738a46d0d", false, "Admin@Olsson.com" });
 
             migrationBuilder.InsertData(
                 table: "Genres",

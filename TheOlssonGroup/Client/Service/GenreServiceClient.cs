@@ -48,7 +48,6 @@ namespace TheOlssonGroup.Client.Service
         public async Task Delete(string CategoryUrl)
         {
             await _http.DeleteAsync($"api/v1/Genre/{CategoryUrl}");
-
         }
     }
 }

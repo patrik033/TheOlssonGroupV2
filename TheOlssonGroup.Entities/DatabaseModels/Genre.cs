@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TheOlssonGroup.Entities.DatabaseModels
+﻿namespace TheOlssonGroup.Entities.DatabaseModels
 {
     public class Genre
     {

@@ -14,9 +14,7 @@ namespace TheOlssonGroup.Contracts.Service.MovieService
         Task<ServiceResponse<Genre>> GetMovieGenreAsync(int id);
         Task<ServiceResponse<List<Movie>>> GetMoviesByGenre(string genreUrl);
         Task<List<MovieDtoRecord>> GetMoviesAndGenresAsync(string genreUrl);
-        Task<PagedList<MovieDtoRecord>> GetMoviesPagedxxxxxx(/*MetaData metaData,[FromQuery]*/ MovieParameters movieParameters);
+        Task<PagedList<MovieDtoRecord>> GetMoviesPagedxxxxxx(MovieParameters movieParameters);
         Task<Dictionary<string, int>> GetStatsSales();
-
-
     }
 }

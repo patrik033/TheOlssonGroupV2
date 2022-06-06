@@ -48,7 +48,8 @@
                     @movies.Sum(movie => movie.Quantity)
                 </div>
             </td>
-            <td><div class="col-4">
+            <td>
+                <div class="col-4">
                     @movies.Sum(movie => movie.Quantity * movie.Price)
                 </div>
             </td>
@@ -67,7 +68,7 @@
 
     List<MovieCartDto> movies = new List<MovieCartDto>();
     private string email = "";
-    List<ListOrdersDto> listOfProducts = new List<ListOrdersDto>();
+    List<ListOrdersDto> listOfMovies = new List<ListOrdersDto>();
     bool orderPlaced = false;
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -96,8 +97,7 @@
                     OrderId = item.MovieId,
                     TotalPrice = item.Price * item.Quantity
                 };
-            listOfProducts.Add(items);
-
+                listOfMovies.Add(items);
         }
     }
 
@@ -108,22 +108,14 @@
 
     public async Task SaveUserData()
     {
-        var userEmail = "";
-        var authState = await authenticationStateTask;
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated && user.Identity.IsAuthenticated != null)
-        {
-            userEmail = authState.User.Identity.Name;
-        }
-
+        var userEmail = await ReturnEmail();
         var getUser = await userService.GetUserId(userEmail);
         var userId = getUser.Data;
 
         var userDto = new UserOrdersDto()
             {
-                BoughtProducts = listOfProducts,
-                TotalPrice = listOfProducts.Sum(x => x.Price * x.Quantity),
+                BoughtProducts = listOfMovies,
+                TotalPrice = listOfMovies.Sum(x => x.Price * x.Quantity),
                 OrderDate = DateTime.Now,
                 UserId = userId,
                 UserEmail = userEmail
@@ -133,13 +125,7 @@
     }
     private async Task SendEmailToServer()
     {
-        var authState = await authenticationStateTask;
-        var user = authState.User;
-        var email = "";
-        if (user.Identity.IsAuthenticated)
-        {
-            email = authState.User.Identity.Name;
-        }
+        var email = await ReturnEmail();
         var result = new EmailDto()
             {
                 EmailList = movies,
@@ -147,5 +133,18 @@
             };
         await client.SendEmail(result);
         navManager.NavigateTo("/");
+    }
+
+    private async Task<string> ReturnEmail()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+        var tempEmail = "";
+
+        if (user.Identity.IsAuthenticated)
+        {
+            tempEmail = authState.User.Identity.Name;
+        }
+        return await Task.FromResult<string>(tempEmail);
     }
 }

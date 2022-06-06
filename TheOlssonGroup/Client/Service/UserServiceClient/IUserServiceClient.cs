@@ -7,6 +7,5 @@ namespace TheOlssonGroup.Client.Service.UserServiceClient
     {
         Task<ServiceResponse<string>> GetUserId(string userId);
         Task SaveUser(UserOrdersDto userOrdersDto);
-
     }
 }

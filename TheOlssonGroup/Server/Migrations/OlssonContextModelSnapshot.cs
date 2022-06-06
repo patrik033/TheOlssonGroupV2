@@ -51,15 +51,15 @@ namespace TheOlssonGroup.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e84260c-53f5-40a7-9e5d-c28b12e3c8ed",
-                            ConcurrencyStamp = "364809fa-6742-4b84-8578-195b00dd99c4",
+                            Id = "806adbba-a48d-4292-9a5f-51688f5b6647",
+                            ConcurrencyStamp = "34b458e2-bec3-4bd7-b7e5-fecce2ec0075",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "624318bf-b1de-4630-9fdd-350d407495f7",
-                            ConcurrencyStamp = "79406f42-189a-48a7-9f92-0f49d50bbdf6",
+                            Id = "f54b9396-2d08-4c74-97e4-33ab0fa66a6f",
+                            ConcurrencyStamp = "522babaf-fca9-48d5-8f33-cfd0f05bf6f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -163,14 +163,14 @@ namespace TheOlssonGroup.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "04d45b31-cc3d-4c40-b16f-e17b6fa78726",
+                            Id = "97114941-e4a7-4b1e-81ed-87559e5a78c5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "456c1347-6005-4b66-b7ef-481024e1981a",
+                            ConcurrencyStamp = "b48d5cdd-0201-4a53-a24b-579c9133faf4",
                             Email = "Admin@Olsson.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d33d790f-af37-4b0d-9692-1ddad3060bb0",
+                            SecurityStamp = "724894a3-085a-4664-90ff-0e7738a46d0d",
                             TwoFactorEnabled = false,
                             UserName = "Admin@Olsson.com"
                         });

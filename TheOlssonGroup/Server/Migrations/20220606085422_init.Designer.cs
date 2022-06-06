@@ -12,7 +12,7 @@ using TheOlssonGroup.Repository.Repositorys;
 namespace TheOlssonGroup.Server.Migrations
 {
     [DbContext(typeof(OlssonContext))]
-    [Migration("20220602121758_init")]
+    [Migration("20220606085422_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,15 +53,15 @@ namespace TheOlssonGroup.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3ebf560d-dec7-4e1f-acae-ab1a0d2148b7",
-                            ConcurrencyStamp = "e3785046-c145-49ec-9078-e956d552d582",
+                            Id = "806adbba-a48d-4292-9a5f-51688f5b6647",
+                            ConcurrencyStamp = "34b458e2-bec3-4bd7-b7e5-fecce2ec0075",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "97858122-519a-40d6-845e-d5191267dce4",
-                            ConcurrencyStamp = "130f2899-f256-4fbd-a8f5-038149b444cf",
+                            Id = "f54b9396-2d08-4c74-97e4-33ab0fa66a6f",
+                            ConcurrencyStamp = "522babaf-fca9-48d5-8f33-cfd0f05bf6f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -165,14 +165,14 @@ namespace TheOlssonGroup.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7bd3e76d-6eb5-4dde-94b4-4bbd2e799614",
+                            Id = "97114941-e4a7-4b1e-81ed-87559e5a78c5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e3014df7-eb94-4c03-a90d-ee85538c6d1e",
+                            ConcurrencyStamp = "b48d5cdd-0201-4a53-a24b-579c9133faf4",
                             Email = "Admin@Olsson.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6649ab43-fa15-49c7-b8a6-f83b5197a7a7",
+                            SecurityStamp = "724894a3-085a-4664-90ff-0e7738a46d0d",
                             TwoFactorEnabled = false,
                             UserName = "Admin@Olsson.com"
                         });

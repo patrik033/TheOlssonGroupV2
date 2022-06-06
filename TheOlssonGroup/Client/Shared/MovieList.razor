@@ -232,7 +232,7 @@
             <div class="flex-me">
                 <div class=" space" style="max-width:250px;">
                     <a href="/war" class="links">
-                        <img src="/Images/War/Dunkirk_Film_poster.jpg" alt="" class="img-fluid card-img-top" style="height:350px;" >
+                        <img src="/Images/War/Dunkirk_Film_poster.jpg" alt="" class="img-fluid card-img-top" style="height:350px;">
                         <div class="card-body links">
                             <h4 class="card-title">War</h4>
                             <small class="text-muted">Last Updated   2022/05/23</small>
@@ -258,28 +258,28 @@
 </section>
 
 <section id="services" class="py-5" style="background:#f8f8ff">
- 
-        <div class="d-flex flex-wrap justify-content-evenly">
-            @foreach (var item in moviesServices.Movies)
-            {
 
-                <div class="">
+    <div class="d-flex flex-wrap justify-content-evenly">
+        @foreach (var item in moviesServices.Movies)
+        {
 
-                    <div class="mx-5" style="max-width:250px;">
-                        <a href="/product/@item.Id" class="links">
-                            <img src="@item.PosterImageUrl" alt="" class="img-fluid card-img-top" style="height:350px;">
-                            <div class="">
-                                <h4 class="">@item.Title</h4>
-                                <hr>
-                                <p class="">
-                                    @item.ShortDescription
-                                </p>
-                            </div>
-                        </a>
-                    </div>
+            <div class="">
+
+                <div class="mx-5" style="max-width:250px;">
+                    <a href="/product/@item.Id" class="links">
+                        <img src="@item.PosterImageUrl" alt="" class="img-fluid card-img-top" style="height:350px;">
+                        <div class="">
+                            <h4 class="">@item.Title</h4>
+                            <hr>
+                            <p class="">
+                                @item.ShortDescription
+                            </p>
+                        </div>
+                    </a>
                 </div>
-            }
-        </div>
+            </div>
+        }
+    </div>
 </section>
 
 
@@ -319,21 +319,19 @@
 
     <hr />
     <div class="leveranser pb-2">
-            <div class="d-flex flex-wrap justify-content-center">
-                <div class="postnord mx-5 my-3">
-                    <img src="/Images/postnord.png" style="max-width:300px;max-height:60px;" />
-                </div>
-                <div class="qliro mx-5 my-3">
-                    <img src="/Images/qliro.png" style="max-width:300px;max-height:60px;" />
-                </div>
-               
-                <div class="stripe mx-5 my-3">
-                    <img src="/Images/logo-stripe.png" style="max-width:300px;max-height:60px;" />
-                </div>
-                <div class="dhl mx-5 my-3">
-                    <img src="/Images/dhl.png" style="max-width:300px;height:60px;" />
-                </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="postnord mx-5 my-3">
+                <img src="/Images/postnord.png" style="max-width:300px;max-height:60px;" />
             </div>
+
+
+            <div class="stripe mx-5 my-3">
+                <img src="/Images/logo-stripe.png" style="max-width:300px;max-height:60px;" />
+            </div>
+            <div class="dhl mx-5 my-3">
+                <img src="/Images/dhl.png" style="max-width:300px;height:60px;" />
+            </div>
+        </div>
     </div>
 </section>
 

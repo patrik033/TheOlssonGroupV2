@@ -1,6 +1,5 @@
 ﻿namespace TheOlssonGroup.Entities.Paging
 {
-
     public abstract class RequestParameters
     {
         const int maxPageSize = 50;

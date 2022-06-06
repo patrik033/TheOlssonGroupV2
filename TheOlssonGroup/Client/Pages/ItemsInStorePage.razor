@@ -5,8 +5,6 @@
 @inject AuthenticationStateProvider user
 
 
-
-
 @if (!orderPlaced)
 {
     <h3>Shopping Cart</h3>
@@ -55,15 +53,15 @@
                                                                 Delete
                                                             </button>
 
-                                                            <button class="btn btn-primary" style="max-width:100px;" @onclick="@(() =>
+                                                            <button class="btn btn-primary mx-2" style="max-width:100px;" @onclick="@(() =>
                                                                  Add(item.MovieId,item.Price,1))">
-                                                                Add
+                                                                <i class="bi bi-cart-plus"></i>
                                                             </button>
                                                             @if (item.Quantity >= 2)
                                                             {
-                                                                <button class="btn btn-danger" style="max-width:100px;" @onclick="@(() =>
+                                                                <button class="btn btn-primary" style="max-width:100px;" @onclick="@(() =>
                                                                  Decrease(item.MovieId,item.Price,1))">
-                                                                    Decrease
+                                                                   <i class="bi bi-cart-dash"></i>
                                                                 </button>
                                                             }
                                                         </span>

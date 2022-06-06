@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TheOlssonGroup.Contracts.Service.UserService;
 using TheOlssonGroup.Entities.DatabaseModels;
 using TheOlssonGroup.Entities.DTOs;
@@ -42,7 +40,5 @@ namespace TheOlssonGroup.Server.Controllers
             var result = await _service.GetUserId(userId);
             return Ok(result);
         }
- 
-
     }
 }

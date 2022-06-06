@@ -6,9 +6,6 @@ using TheOlssonGroup.Repository.Repositorys;
 
 namespace TheOlssonGroup.Repository.Service.CartService
 {
-
-
-
     public class CartService : ICartService
     {
         private readonly OlssonContext _context;
@@ -17,7 +14,6 @@ namespace TheOlssonGroup.Repository.Service.CartService
         {
             _context = context;
         }
-
 
         public async Task<ServiceResponse<List<MovieCartDto>>> GetCartProducts(List<CartItem> cartItems)
         {

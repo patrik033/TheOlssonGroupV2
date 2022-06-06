@@ -23,6 +23,7 @@ namespace TheOlssonGroup.Repository.Repositorys.Service.StripeServices
                     ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
                         Name = x.Title,
+                        //images must be hard coded, doesn't work for us
                         //Images = new List<string> { x.Image }
                     }
                 },

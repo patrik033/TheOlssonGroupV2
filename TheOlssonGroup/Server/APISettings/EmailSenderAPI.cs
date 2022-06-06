@@ -14,7 +14,7 @@ namespace BlazorApp1.Server.APIHelper
             {
                 //configuration
                 var emailToSender = new MimeMessage();
-                emailToSender.From.Add(MailboxAddress.Parse("hello@bangansbio.com"));
+                emailToSender.From.Add(MailboxAddress.Parse("theolssongroup@gmail.com"));
                 emailToSender.To.Add(MailboxAddress.Parse(email));
                 emailToSender.Subject = subject;
                 emailToSender.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
@@ -25,7 +25,7 @@ namespace BlazorApp1.Server.APIHelper
                     //denna gör att du kan skicka mail - ta inte bort
                     emailClient.CheckCertificateRevocation = false;
                     emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    emailClient.Authenticate("bangans.bio@gmail.com", "yxetizawatohpsxh");
+                    emailClient.Authenticate("theolssongroup@gmail.com", "lrkbdxrsqbsrgcaw");
                     emailClient.Send(emailToSender);
                     emailClient.Disconnect(true);
                 }
@@ -34,7 +34,6 @@ namespace BlazorApp1.Server.APIHelper
             {
                 throw;
             }
-
             return Task.CompletedTask;
         }
     }

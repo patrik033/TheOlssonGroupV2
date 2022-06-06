@@ -34,56 +34,37 @@
 
 <MudThemeProvider />
 
-    <MudStack Justify="Justify.SpaceEvenly" AlignItems="AlignItems.Center" Row="true" >
+<MudStack Justify="Justify.SpaceEvenly" AlignItems="AlignItems.Center" Row="true">
     <div class="d-flex flex-wrap justify-content-evenly align-items-center">
         @foreach (var item in MyMovie)
         {
-        <div class="p-3 bg-white">
-            <div class="about-product text-center mt-2"><img src="@item.PosterImageUrl" width="180" height="300">
-                <div>
-                    <h4></h4>
-                    <h6 class="mt-0 text-black-50">@item.Title</h6>
+            <div class="p-3 bg-white">
+                <div class="about-product text-center mt-2">
+                    <img src="@item.PosterImageUrl" width="180" height="300">
+                    <div>
+                        <h4></h4>
+                        <h6 class="mt-0 text-black-50">@item.Title</h6>
+                    </div>
+                </div>
+                <div class="stats mt-2">
+                    <div class="d-flex justify-content-between p-price"><span>Price</span><span>$@item.Price</span></div>
+                    <div class="d-flex justify-content-between p-price"><span>Genre</span><span>@item.GenreName</span></div>
+                    <div class="d-flex justify-content-between p-price"><span class="fw-bold">Info</span><a href="product/@item.Id"><span><i class="bi bi-info-circle-fill"></i></span></a></div>
+                    <a class="mt-5 ms-5 btn btn-outline-primary" @onclick="()=>AddItemForCheckout(item)"><i class="oi oi-cart">&nbsp;&nbsp; Add To Basket</i></a>
                 </div>
             </div>
-            <div class="stats mt-2">
-                <div class="d-flex justify-content-between p-price" ><span>Price</span><span>$@item.Price</span></div>
-                <div class="d-flex justify-content-between p-price"><span>Genre</span><span>@item.GenreName</span></div>
-             <div class="d-flex justify-content-between p-price"><span>Info</span><a href="product/@item.Id"><span><i class="bi bi-info-circle"></i></span></a></div>
-             <a class="mt-5 ms-5 btn btn-outline-primary" @onclick="()=>AddItemForCheckout(item)"><i class="oi oi-cart">&nbsp;&nbsp; Add To Basket</i></a> 
-            </div>
-            
-        </div>
-
         }
-
     </div>
-
-        
-        }
-      
-    
-
+    }
 </MudStack>
-
-
-
 
 
 @code {
     private List<MovieDtoRecord>? MyMovie = new List<MovieDtoRecord>();
     private MovieDtoRecord record;
-    //private MudCarousel<MovieDtoRecord> _carousel;
-    //private string message = string.Empty;
-    //private int selectedIndex = 2;
-    //private bool _arrows = true;
-    //private bool _bullets = true;
-    //private bool _autocycle = true;
-    //private List<string> urls = new List<string>();
     private Movie? movie = null;
     [Parameter]
     public string? CategoryUrl { get; set; }
-    //[Parameter]
-    //public int Id { get; set; }
     private async Task AddItemForCheckout(MovieDtoRecord movie)
     {
         var cartItem = new CartItem

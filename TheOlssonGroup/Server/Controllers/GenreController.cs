@@ -11,7 +11,6 @@ namespace TheOlssonGroup.Server.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    //[Route("api/[controller]")]
     public class GenreController : ControllerBase
     {
         private readonly IGenreService _genreService;

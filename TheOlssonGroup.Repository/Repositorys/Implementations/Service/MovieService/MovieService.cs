@@ -15,7 +15,7 @@ namespace TheOlssonGroup.Server.Service.MovieService
     {
         private readonly OlssonContext _context;
         private readonly IMapper _mapper;
-        public MovieService(OlssonContext context,IMapper mapper)
+        public MovieService(OlssonContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -57,13 +57,13 @@ namespace TheOlssonGroup.Server.Service.MovieService
             return respone;
         }
 
-        
-     
+
+
         public async Task<ServiceResponse<List<Genre>>> GetMovieGenresAsync()
         {
             var response = new ServiceResponse<List<Genre>>
             {
-                Data = await _context.Genres.ToListAsync()   
+                Data = await _context.Genres.ToListAsync()
             };
             return response;
         }
@@ -111,55 +111,44 @@ namespace TheOlssonGroup.Server.Service.MovieService
             };
             return response;
         }
-        //denna funkar nu
         public async Task<List<MovieDtoRecord>> GetMoviesAndGenresAsync(string genreUrl)
         {
             try
             {
-                var moviesNgenres =  await _context.Movies.Include(x => x.Genre).Where(x => x.Genre.GenreName.ToLower() == genreUrl.ToLower()).ToListAsync();
+                var moviesNgenres = await _context.Movies.Include(x => x.Genre).Where(x => x.Genre.GenreName.ToLower() == genreUrl.ToLower()).ToListAsync();
                 var movieDtoRecord = _mapper.Map<List<MovieDtoRecord>>(moviesNgenres);
                 return movieDtoRecord;
             }
-            catch 
+            catch
             {
                 throw;
             }
         }
 
-        
-        public async Task<PagedList<MovieDtoRecord>> GetMoviesPagedxxxxxx(/*MetaData metaData, [FromQuery] */MovieParameters movieParameters)
+
+        public async Task<PagedList<MovieDtoRecord>> GetMoviesPagedxxxxxx(MovieParameters movieParameters)
         {
-                var moviesWithMetaData = await _context.Movies.Include(x => x.Genre)
-                                /*.Where(x => x.GenreId == x.Genre.Id)*/.Search(movieParameters.SearchTerm)
-                                    .ToListAsync();
-            
-                if (moviesWithMetaData.Count() == 0)
+            var moviesWithMetaData = await _context.Movies.Include(x => x.Genre)
+                                .Search(movieParameters.SearchTerm)
+                                .ToListAsync();
+            if (moviesWithMetaData.Count() == 0)
+            {
+                var response = new ServiceResponse<List<MovieDtoRecord>>
                 {
-                    var response = new ServiceResponse<List<MovieDtoRecord>>
-                    {
-                        Data = null,
-                        Success = false,
-                        Message = "No data to show"
-                    };
-                    var respone = PagedList<MovieDtoRecord>.ToPagedList(response.Data, movieParameters.PageNumber, movieParameters.PageSize);
+                    Data = null,
+                    Success = false,
+                    Message = "No data to show"
+                };
+                var respone = PagedList<MovieDtoRecord>.ToPagedList(response.Data, movieParameters.PageNumber, movieParameters.PageSize);
                 return respone;
-                }
-                else
-                {
-                //var responseDto = new ServiceResponse<List<MovieDtoRecord>>
-                //{
-                var responseDto = _mapper.Map<List<MovieDtoRecord>>(moviesWithMetaData);
-                        //Success = true,
-                        //Message = "Found movies in that genre"
-                    //};
-
-                    var pagedList = PagedList<MovieDtoRecord>.ToPagedList(responseDto, movieParameters.PageNumber, movieParameters.PageSize);
-                    return (pagedList);
             }
-
-
-
-}
+            else
+            {
+                var responseDto = _mapper.Map<List<MovieDtoRecord>>(moviesWithMetaData);
+                var pagedList = PagedList<MovieDtoRecord>.ToPagedList(responseDto, movieParameters.PageNumber, movieParameters.PageSize);
+                return (pagedList);
+            }
+        }
 
         public async Task<Dictionary<string, int>> GetStatsSales()
         {

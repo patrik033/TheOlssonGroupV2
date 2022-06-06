@@ -38,7 +38,6 @@
 		<ProjectReference Include="..\..\TheOlssonGroup.Repository\TheOlssonGroup.Repository.csproj" />
 		<ProjectReference Include="..\..\TheOlssonGroup.Services\TheOlssonGroup.Services.csproj" />
 		<ProjectReference Include="..\Client\TheOlssonGroup.Client.csproj" />
-		<ProjectReference Include="..\Shared\TheOlssonGroup.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

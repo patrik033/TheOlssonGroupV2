@@ -22,18 +22,13 @@ using TheOlssonGroup.Server.Service.MovieService;
 using TheOlssonGroup.Server.Service.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
-//logger
 
 //extensions
 builder.Services.ConfigureCors();
-//builder.Services.ConfigureIISIntegration();
 
-
-//builder.Services.ConfigureSqlContext(builder.Configuration);
 //connectionstring
 builder.Services.ConfigureSqlContextOlsson(builder.Configuration);
 // Add services to the container.
-
 
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureApiVersioning();
@@ -56,6 +51,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<OlssonContext>();
 
+//get section from appsettings for identity
 var apiSettingsSection = builder.Configuration.GetSection("APISettings");
 builder.Services.Configure<APISettings>(apiSettingsSection);
 
@@ -67,6 +63,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 app.UseSwaggerUI( options =>
 {
+//endpoint for versioning
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
 });
 

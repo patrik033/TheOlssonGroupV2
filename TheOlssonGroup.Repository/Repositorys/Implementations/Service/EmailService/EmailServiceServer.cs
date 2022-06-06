@@ -75,7 +75,7 @@ namespace TheOlssonGroup.Server.Service.EmailService
             {
                 //configuration
                 var emailToSender = new MimeMessage();
-                emailToSender.From.Add(MailboxAddress.Parse("hello@bangansbio.com"));
+                emailToSender.From.Add(MailboxAddress.Parse("theolssongroup@gmail.com"));
                 emailToSender.To.Add(MailboxAddress.Parse(email));
                 emailToSender.Subject = subject;
                 emailToSender.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
@@ -86,7 +86,7 @@ namespace TheOlssonGroup.Server.Service.EmailService
                     //denna gör att du kan skicka mail - ta inte bort
                     emailClient.CheckCertificateRevocation = false;
                     emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    emailClient.Authenticate("bangans.bio@gmail.com", "yxetizawatohpsxh");
+                    emailClient.Authenticate("theolssongroup@gmail.com", "lrkbdxrsqbsrgcaw");
                     emailClient.Send(emailToSender);
                     emailClient.Disconnect(true);
                 }

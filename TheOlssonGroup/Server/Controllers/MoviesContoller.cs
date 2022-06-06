@@ -6,14 +6,11 @@ using TheOlssonGroup.Entities.DTOs;
 using TheOlssonGroup.Entities.Models;
 using TheOlssonGroup.Entities.Paging;
 
-
-
 namespace TheOlssonGroup.Server.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/movie")]
-    //[Route("api/movie")]
     public class MoviesContoller : ControllerBase
     {
         private readonly IMovieService _movieService;
@@ -65,19 +62,18 @@ namespace TheOlssonGroup.Server.Controllers
             return Ok(result);
         }
         [MapToApiVersion("1.0")]
-        [HttpGet("GetMoviesPaged/hejpa")]//ändara från post till get
-         public async Task<ActionResult<PagedList<MovieDtoRecord>>> GetMoviesPagedxxxxxx(/*MetaData metaData,*/ [FromQuery] MovieParameters movieParameters)
+        [HttpGet("GetMoviesPaged/hejpa")]
+         public async Task<ActionResult<PagedList<MovieDtoRecord>>> GetMoviesPagedxxxxxx([FromQuery] MovieParameters movieParameters)
         {
             var buff = movieParameters.PageNumber.ToString();
            
-            var movies = await _movieService.GetMoviesPagedxxxxxx(/*metaData,*/movieParameters);
+            var movies = await _movieService.GetMoviesPagedxxxxxx(movieParameters);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(movies.MetaData));
             return Ok(movies);
         }
         #endregion
         [MapToApiVersion("1.0")]
         [HttpPost]
-        //TODO: fixa created at route
         public async Task<ActionResult<ServiceResponse<Movie>>> CreateMovie(Movie movie)
         {
             if (movie == null)

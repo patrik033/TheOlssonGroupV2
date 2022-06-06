@@ -16,7 +16,6 @@ namespace TangyWeb_API.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]/[action]")]
-    //[Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -101,7 +100,7 @@ namespace TangyWeb_API.Controllers
                     });
                 }
 
-                //everything is valid and we need to login 
+                //everything is valid and we can login 
                 var signinCredentials = GetSigningCredentials();
                 var claims = await GetClaims(user);
 

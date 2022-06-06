@@ -33,9 +33,6 @@ namespace TheOlssonGroup.Server.Service.UserService
             return resultService;
         }
 
-        public Task<ServiceResponse<UserOrder>> Save(UserOrder userOrdersDto)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

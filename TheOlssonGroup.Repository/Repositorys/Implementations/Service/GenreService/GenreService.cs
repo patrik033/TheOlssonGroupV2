@@ -47,7 +47,6 @@ namespace TheOlssonGroup.Server.Service.GenreService
             try
             {
                 var genresAnd = await _context.Movies.Include(x => x.Genre).Where(x => x.GenreId == id).ToListAsync();
-                //var movieDtoRecord = _mapper.Map<List<MovieDtoRecord>>(moviesNgenres);
                 return genresAnd;
             }
             catch (Exception ex)
@@ -62,12 +61,10 @@ namespace TheOlssonGroup.Server.Service.GenreService
             var genre = await _context.Genres.FirstOrDefaultAsync(x => x.GenreUrl.ToLower() == genreUrl.ToLower());
             result.Data = genre;
             return result;
-            
         }
 
         public async Task<ServiceResponse<Genre>> SaveGenreAsync(Genre genre)
         {
-
             var result = new ServiceResponse<Genre>();
             if (genre != null)
             {
