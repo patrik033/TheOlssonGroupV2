@@ -42,10 +42,10 @@ namespace TheOlssonGroup.Repository.Repositorys.Service.StripeServices
 
 
 
-                SuccessUrl = "https://localhost:7284/success",
-                CancelUrl = "https://localhost:7284/failed",
-                //SuccessUrl = "https://theolssongroup.azurewebsites.net/success",
-                //CancelUrl = "https://theolssongroup.azurewebsites.net/failed",
+                //SuccessUrl = "https://localhost:7284/success",
+                //CancelUrl = "https://localhost:7284/failed",
+                SuccessUrl = "https://theolssongroup.azurewebsites.net/success",
+                CancelUrl = "https://theolssongroup.azurewebsites.net/failed",
             };
             var service = new SessionService();
             Session session = service.Create(options);
