@@ -37,4 +37,7 @@ The website is setup with stripe as the payment provied, but no money will be ch
  
  We have provided email capabilities in this project so if you want to be sure to be able to receive an email, please provide a valid one if you want to be able to receive a confirmation email.
  
+ ## Presentation
+ [The Olsson Presentation](https://docs.google.com/presentation/d/15a2H-y4oSkkm1f7WKnVEfdMN510AGUvbgoVWgm4q8Qg/edit?usp=sharing)
+ 
  
