@@ -26,7 +26,6 @@ namespace TheOlssonGroup.Server.Extensions
                     .WithExposedHeaders("X-Pagination"));
             });
 
-
         /// <summary>
         /// Versioning for the API
         /// </summary>
@@ -48,7 +47,5 @@ namespace TheOlssonGroup.Server.Extensions
         public static void ConfigureSqlContextOlsson(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<OlssonContext>(opts =>
             opts.UseSqlServer(configuration.GetConnectionString("AzureServer")));
-
-
     }
 }
